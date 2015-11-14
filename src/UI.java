@@ -1,59 +1,66 @@
 
-import java.awt.EventQueue;
+import javax.swing.DefaultListModel;
 
 
 /**
  *
- * @author Umair Qamar
+ * @author umair
  */
-public class RunnablePs extends javax.swing.JFrame implements Runnable{
-    
-    private Thread t;
-    private String threadName;
-    
-    RunnablePs(String name){
-       
-        threadName=name;
-        
-//        jTextArea1.append("Creating " +  threadName);
-        System.out.println("Creating " +  threadName );
-    }
+public class UI extends javax.swing.JFrame {
 
-       
-    public void run(){
+    /**
+     * Creates new form UI
+     */
+    public UI() {
+        initComponents();
+        
+        ThreadDemo T1 = new ThreadDemo( "Thread-1");
+        T1.start();
+    }
     
+   public class ThreadDemo extends Thread {
+   private Thread t;
+   private String threadName;
+   
+   
+   ThreadDemo( String name){
+       threadName = name;
+       System.out.println("Creating " +  threadName );
+       jTextArea1.append("Creating " +  threadName );
+       
+       
+   }
+   public void run() {
       System.out.println("Running " +  threadName );
+      jTextArea1.append("Running " +  threadName );
       try {
-        for(int i = 4; i > 0; i--) {
+         for(int i = 4; i > 0; i--) {
+            jTextArea1.append("Thread: " + threadName + ", " + i);
             System.out.println("Thread: " + threadName + ", " + i);
             // Let the thread sleep for a while.
-            Thread.sleep(1000);
-        }
-        
+            Thread.sleep(50);
+         }
      } catch (InterruptedException e) {
-         //jTextArea1.append("Thread " +  threadName + " interrupted.");
          System.out.println("Thread " +  threadName + " interrupted.");
+         jTextArea1.append("Thread " +  threadName + " interrupted.");
      }
-     System.out.println("Thread " +  threadName + " exiting.");   
-    }
-
+     System.out.println("Thread " +  threadName + " exiting.");
+     jTextArea1.append("Thread " +  threadName + " exiting.");
+   }
+   
    public void start ()
    {
-//    jTextArea1.append("Starting " +  threadName );
       System.out.println("Starting " +  threadName );
+      jTextArea1.append("Thread " +  threadName + " exiting.");
       if (t == null)
       {
          t = new Thread (this, threadName);
          t.start ();
       }
    }
-    /**
-     * Creates new form View
-     */
-    public RunnablePs() {
-       initComponents(); 
-        
-    }
+
+}
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -65,21 +72,26 @@ public class RunnablePs extends javax.swing.JFrame implements Runnable{
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Process Scheduler");
         getContentPane().add(jLabel1, java.awt.BorderLayout.PAGE_START);
+
+        jPanel1.setLayout(new javax.swing.BoxLayout(jPanel1, javax.swing.BoxLayout.LINE_AXIS));
 
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
         jScrollPane1.setViewportView(jTextArea1);
 
-        getContentPane().add(jScrollPane1, java.awt.BorderLayout.CENTER);
+        jPanel1.add(jScrollPane1);
+
+        getContentPane().add(jPanel1, java.awt.BorderLayout.CENTER);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -88,12 +100,8 @@ public class RunnablePs extends javax.swing.JFrame implements Runnable{
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        RunnablePs R1 = new RunnablePs( "Thread-1");
-        R1.start(); 
-   
-    
-
-   
+        
+        
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -107,29 +115,27 @@ public class RunnablePs extends javax.swing.JFrame implements Runnable{
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(RunnablePs.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(UI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(RunnablePs.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(UI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(RunnablePs.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(UI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(RunnablePs.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(UI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new RunnablePs().setVisible(true);
+                new UI().setVisible(true);
             }
         });
     }
-
+    DefaultListModel model =new DefaultListModel();
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea jTextArea1;
     // End of variables declaration//GEN-END:variables
