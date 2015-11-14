@@ -23,8 +23,15 @@ public class UI extends javax.swing.JFrame {
         ThreadDemo T1 = new ThreadDemo( "Thread-1");
         T1.start();
         ThreadDemo T2= new ThreadDemo("Thread-2");
+        T2.start();
         ThreadDemo T3= new ThreadDemo ("Thread-3");
         T3.start();
+        ThreadDemo T4= new ThreadDemo ("Thread-4");
+        T4.start();
+        ThreadDemo T5= new ThreadDemo ("Thread-5");
+        T5.start();
+        ThreadDemo T6= new ThreadDemo ("Thread-6");
+        T6.start();
     }
     
    public class ThreadDemo extends Thread {
@@ -87,50 +94,82 @@ public class UI extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel2 = new javax.swing.JLabel();
+        jSeparator1 = new javax.swing.JSeparator();
+        jPanel2 = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
-        jTextArea1 = new javax.swing.JTextArea();
-        jPanel2 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         readyList = new javax.swing.JList();
         jScrollPane3 = new javax.swing.JScrollPane();
         waitingList = new javax.swing.JList();
         jScrollPane1 = new javax.swing.JScrollPane();
         runningList = new javax.swing.JList();
+        jPanel3 = new javax.swing.JPanel();
+        jSeparator2 = new javax.swing.JSeparator();
+        jLabel5 = new javax.swing.JLabel();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        jTextArea1 = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(new javax.swing.BoxLayout(getContentPane(), javax.swing.BoxLayout.Y_AXIS));
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel2.setText("Process Scheduler");
+        getContentPane().add(jLabel2);
+        getContentPane().add(jSeparator1);
+
+        jPanel2.setLayout(new java.awt.GridLayout(1, 3, 5, 0));
+
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel3.setText("Ready Queue");
+        jPanel2.add(jLabel3);
+
+        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel4.setText("Running");
+        jPanel2.add(jLabel4);
+
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Process Scheduler");
-        getContentPane().add(jLabel1, java.awt.BorderLayout.PAGE_START);
+        jLabel1.setText("Waiting");
+        jPanel2.add(jLabel1);
 
-        jPanel1.setPreferredSize(new java.awt.Dimension(400, 500));
-        jPanel1.setLayout(new javax.swing.BoxLayout(jPanel1, javax.swing.BoxLayout.Y_AXIS));
+        getContentPane().add(jPanel2);
+
+        jPanel1.setLayout(new java.awt.GridLayout(1, 3, 5, 0));
+
+        jScrollPane2.setViewportView(readyList);
+
+        jPanel1.add(jScrollPane2);
+
+        jScrollPane3.setViewportView(waitingList);
+
+        jPanel1.add(jScrollPane3);
+
+        jScrollPane1.setViewportView(runningList);
+
+        jPanel1.add(jScrollPane1);
+
+        getContentPane().add(jPanel1);
+
+        jPanel3.setPreferredSize(new java.awt.Dimension(100, 400));
+        jPanel3.setLayout(new java.awt.BorderLayout());
+        jPanel3.add(jSeparator2, java.awt.BorderLayout.CENTER);
+
+        jLabel5.setText("Statistics:");
+        jPanel3.add(jLabel5, java.awt.BorderLayout.PAGE_START);
 
         jTextArea1.setEditable(false);
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
-        jTextArea1.setPreferredSize(new java.awt.Dimension(455, 500));
-        jPanel1.add(jTextArea1);
+        jTextArea1.setPreferredSize(new java.awt.Dimension(164, 500));
+        jScrollPane4.setViewportView(jTextArea1);
 
-        jPanel2.setLayout(new java.awt.GridLayout(1, 3));
+        jPanel3.add(jScrollPane4, java.awt.BorderLayout.CENTER);
 
-        jScrollPane2.setViewportView(readyList);
-
-        jPanel2.add(jScrollPane2);
-
-        jScrollPane3.setViewportView(waitingList);
-
-        jPanel2.add(jScrollPane3);
-
-        jScrollPane1.setViewportView(runningList);
-
-        jPanel2.add(jScrollPane1);
-
-        jPanel1.add(jPanel2);
-
-        getContentPane().add(jPanel1, java.awt.BorderLayout.CENTER);
+        getContentPane().add(jPanel3);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -176,11 +215,19 @@ public class UI extends javax.swing.JFrame {
     DefaultListModel running =new DefaultListModel();
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JSeparator jSeparator2;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JList readyList;
     private javax.swing.JList runningList;
