@@ -26,32 +26,32 @@ public class UI extends javax.swing.JFrame {
    ThreadDemo( String name){
        threadName = name;
        System.out.println("Creating " +  threadName );
-       jTextArea1.append("Creating " +  threadName );
+       jTextArea1.append("Creating " +  threadName + "\n");
        
        
    }
    public void run() {
       System.out.println("Running " +  threadName );
-      jTextArea1.append("Running " +  threadName );
+      jTextArea1.append("Running " +  threadName + "\n");
       try {
          for(int i = 4; i > 0; i--) {
-            jTextArea1.append("Thread: " + threadName + ", " + i);
-            System.out.println("Thread: " + threadName + ", " + i);
+            jTextArea1.append("Thread: " + threadName + ", " + i + "\n");
+            System.out.println("Thread: " + threadName + ", " + i );
             // Let the thread sleep for a while.
-            Thread.sleep(50);
+            Thread.sleep(5000);
          }
      } catch (InterruptedException e) {
          System.out.println("Thread " +  threadName + " interrupted.");
-         jTextArea1.append("Thread " +  threadName + " interrupted.");
+         jTextArea1.append("Thread " +  threadName + " interrupted."+ "\n");
      }
      System.out.println("Thread " +  threadName + " exiting.");
-     jTextArea1.append("Thread " +  threadName + " exiting.");
+     jTextArea1.append("Thread " +  threadName + " exiting."+ "\n");
    }
    
    public void start ()
    {
       System.out.println("Starting " +  threadName );
-      jTextArea1.append("Thread " +  threadName + " exiting.");
+      jTextArea1.append("Thread " +  threadName + " exiting."+ "\n");
       if (t == null)
       {
          t = new Thread (this, threadName);
@@ -73,7 +73,6 @@ public class UI extends javax.swing.JFrame {
 
         jLabel1 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -83,13 +82,14 @@ public class UI extends javax.swing.JFrame {
         jLabel1.setText("Process Scheduler");
         getContentPane().add(jLabel1, java.awt.BorderLayout.PAGE_START);
 
+        jPanel1.setPreferredSize(new java.awt.Dimension(400, 500));
         jPanel1.setLayout(new javax.swing.BoxLayout(jPanel1, javax.swing.BoxLayout.LINE_AXIS));
 
+        jTextArea1.setEditable(false);
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
-
-        jPanel1.add(jScrollPane1);
+        jTextArea1.setPreferredSize(new java.awt.Dimension(455, 500));
+        jPanel1.add(jTextArea1);
 
         getContentPane().add(jPanel1, java.awt.BorderLayout.CENTER);
 
@@ -136,7 +136,6 @@ public class UI extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea jTextArea1;
     // End of variables declaration//GEN-END:variables
 }
