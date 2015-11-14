@@ -13,9 +13,18 @@ public class UI extends javax.swing.JFrame {
      */
     public UI() {
         initComponents();
+        readyList.setModel(ready);
+        runningList.setModel(waiting);
+        waitingList.setModel(running);
+        
+        int io =0;
+        int execTime=5; //5 seconds default
         
         ThreadDemo T1 = new ThreadDemo( "Thread-1");
         T1.start();
+        ThreadDemo T2= new ThreadDemo("Thread-2");
+        ThreadDemo T3= new ThreadDemo ("Thread-3");
+        T3.start();
     }
     
    public class ThreadDemo extends Thread {
@@ -27,18 +36,22 @@ public class UI extends javax.swing.JFrame {
        threadName = name;
        System.out.println("Creating " +  threadName );
        jTextArea1.append("Creating " +  threadName + "\n");
+       ready.addElement(name);
+       
        
        
    }
    public void run() {
       System.out.println("Running " +  threadName );
       jTextArea1.append("Running " +  threadName + "\n");
+      ready.removeElement(threadName);
+      running.addElement(threadName);
       try {
          for(int i = 4; i > 0; i--) {
             jTextArea1.append("Thread: " + threadName + ", " + i + "\n");
             System.out.println("Thread: " + threadName + ", " + i );
             // Let the thread sleep for a while.
-            Thread.sleep(5000);
+            Thread.sleep(2000);
          }
      } catch (InterruptedException e) {
          System.out.println("Thread " +  threadName + " interrupted.");
@@ -46,15 +59,18 @@ public class UI extends javax.swing.JFrame {
      }
      System.out.println("Thread " +  threadName + " exiting.");
      jTextArea1.append("Thread " +  threadName + " exiting."+ "\n");
+     running.removeElement(threadName);
    }
    
    public void start ()
    {
+      
       System.out.println("Starting " +  threadName );
       jTextArea1.append("Thread " +  threadName + " exiting."+ "\n");
       if (t == null)
       {
          t = new Thread (this, threadName);
+          waiting.addElement(threadName);
          t.start ();
       }
    }
@@ -74,22 +90,45 @@ public class UI extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jTextArea1 = new javax.swing.JTextArea();
+        jPanel2 = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        readyList = new javax.swing.JList();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        waitingList = new javax.swing.JList();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        runningList = new javax.swing.JList();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Process Scheduler");
         getContentPane().add(jLabel1, java.awt.BorderLayout.PAGE_START);
 
         jPanel1.setPreferredSize(new java.awt.Dimension(400, 500));
-        jPanel1.setLayout(new javax.swing.BoxLayout(jPanel1, javax.swing.BoxLayout.LINE_AXIS));
+        jPanel1.setLayout(new javax.swing.BoxLayout(jPanel1, javax.swing.BoxLayout.Y_AXIS));
 
         jTextArea1.setEditable(false);
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
         jTextArea1.setPreferredSize(new java.awt.Dimension(455, 500));
         jPanel1.add(jTextArea1);
+
+        jPanel2.setLayout(new java.awt.GridLayout(1, 3));
+
+        jScrollPane2.setViewportView(readyList);
+
+        jPanel2.add(jScrollPane2);
+
+        jScrollPane3.setViewportView(waitingList);
+
+        jPanel2.add(jScrollPane3);
+
+        jScrollPane1.setViewportView(runningList);
+
+        jPanel2.add(jScrollPane1);
+
+        jPanel1.add(jPanel2);
 
         getContentPane().add(jPanel1, java.awt.BorderLayout.CENTER);
 
@@ -132,10 +171,19 @@ public class UI extends javax.swing.JFrame {
             }
         });
     }
-    DefaultListModel model =new DefaultListModel();
+    DefaultListModel ready =new DefaultListModel();
+    DefaultListModel waiting =new DefaultListModel();
+    DefaultListModel running =new DefaultListModel();
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JList readyList;
+    private javax.swing.JList runningList;
+    private javax.swing.JList waitingList;
     // End of variables declaration//GEN-END:variables
 }
