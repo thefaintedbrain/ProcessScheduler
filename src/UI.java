@@ -1,4 +1,5 @@
 
+import java.util.Scanner;
 import javax.swing.DefaultListModel;
 
 
@@ -16,22 +17,33 @@ public class UI extends javax.swing.JFrame {
         readyList.setModel(ready);
         runningList.setModel(waiting);
         waitingList.setModel(running);
-        
-        int io =0;
+        int numOfProcess=1;
+        int io=0;
         int execTime=5; //5 seconds default
+        Scanner in =new Scanner(System.in);
+        System.out.println("Number of Process: ");
+        numOfProcess=in.nextInt();
+//        
+//        System.out.println("Number of I/O: ");
+//        io=in.nextInt();
+//        
+//        System.out.println("Execution time in seconds: ");
+//        execTime=in.nextInt();
+//        
+//        System.out.println("I/O: "+io +"\nExecution Time: "+execTime);
         
-        ThreadDemo T1 = new ThreadDemo( "Thread-1");
-        T1.start();
-        ThreadDemo T2= new ThreadDemo("Thread-2");
-        T2.start();
-        ThreadDemo T3= new ThreadDemo ("Thread-3");
-        T3.start();
-        ThreadDemo T4= new ThreadDemo ("Thread-4");
-        T4.start();
-        ThreadDemo T5= new ThreadDemo ("Thread-5");
-        T5.start();
-        ThreadDemo T6= new ThreadDemo ("Thread-6");
-        T6.start();
+        for (int i=numOfProcess ; i>0 ;i--){
+            ThreadDemo t=new ThreadDemo("Thread-"+i,io,execTime);
+            t.start();
+        }
+//        ThreadDemo T1 = new ThreadDemo("Thread-1",io,execTime);
+//        T1.start();
+//        ThreadDemo T2= new ThreadDemo("Thread-2",io,execTime);
+//        T2.start();
+//        ThreadDemo T3= new ThreadDemo ("Thread-3",io,execTime);
+//        T3.start();
+       
+        
     }
     
    public class ThreadDemo extends Thread {
@@ -39,8 +51,9 @@ public class UI extends javax.swing.JFrame {
    private String threadName;
    
    
-   ThreadDemo( String name){
+   ThreadDemo(String name,int io,int time){
        threadName = name;
+       
        System.out.println("Creating " +  threadName );
        jTextArea1.append("Creating " +  threadName + "\n");
        ready.addElement(name);
