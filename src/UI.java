@@ -74,8 +74,30 @@ public class UI extends javax.swing.JFrame {
             
             System.out.println("Thread: " + threadName + ", " + i );
             jTextArea1.append("Thread: " + threadName + ", " + i + "\n");
-            // Let the thread sleep for a while.
             Thread.sleep(1000);
+            
+            if (input_output > 0){
+                
+                for (int j=input_output ; j>0 ; j--)
+                {
+                    Thread.yield();
+                    System.out.println(threadName+"Interupted by I/O:"+input_output);
+                    jTextArea1.append(threadName+"Interupted by I/O:"+input_output);
+                      if (!running.isEmpty()){
+                        running.removeElement(threadName);
+                       
+                       } 
+                        waiting.addElement(threadName);
+                }
+                if (!waiting.isEmpty()){
+                waiting.removeElement(threadName);
+                running.addElement(threadName);
+               } 
+            }
+            
+          
+
+            
          }
      } catch (InterruptedException e) {
          System.out.println("Thread " +  threadName + " interrupted.");
@@ -87,7 +109,11 @@ public class UI extends javax.swing.JFrame {
     //After execution removing from running list
      if (!running.isEmpty()){
            running.removeElement(threadName);
-       } 
+           
+       }
+     if (!waiting.isEmpty()){
+        waiting.clear();
+     }
      
      
    }
@@ -100,6 +126,7 @@ public class UI extends javax.swing.JFrame {
       if (t == null)
       {
          t = new Thread (this, threadName);
+         
          t.start ();
       }
    }
