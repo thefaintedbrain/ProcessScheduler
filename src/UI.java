@@ -70,19 +70,21 @@ public class UI extends javax.swing.JFrame {
       
       
       try {
-         for(int i = execTime; i > 0; i--) {
+         //for(int i = execTime; i > 0; i--) {
             
-            System.out.println("Thread: " + threadName + ", " + i );
-            jTextArea1.append("Thread: " + threadName + ", " + i + "\n");
-            Thread.sleep(1000);
+            System.out.println("Thread: " + threadName + ", ");
+            jTextArea1.append("Thread: " + threadName + ", " + "\n");
+            Thread.sleep(execTime*1000);
             
             if (input_output > 0){
                 
                 for (int j=input_output ; j>0 ; j--)
                 {
                     Thread.yield();
-                    System.out.println(threadName+"Interupted by I/O:"+input_output);
-                    jTextArea1.append(threadName+"Interupted by I/O:"+input_output);
+                    System.out.println(threadName+" Interupted by I/O:"+input_output);
+                    jTextArea1.append(threadName+" Interupted by I/O:"+input_output);
+                    
+                    //Add process to waiting list
                       if (!running.isEmpty()){
                         running.removeElement(threadName);
                        
@@ -98,7 +100,7 @@ public class UI extends javax.swing.JFrame {
           
 
             
-         }
+       //  }
      } catch (InterruptedException e) {
          System.out.println("Thread " +  threadName + " interrupted.");
          jTextArea1.append("Thread " +  threadName + " interrupted."+ "\n");
