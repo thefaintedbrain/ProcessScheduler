@@ -15,33 +15,28 @@ public class UI extends javax.swing.JFrame {
     public UI() {
         initComponents();
         readyList.setModel(ready);
-        runningList.setModel(waiting);
-        waitingList.setModel(running);
+        runningList.setModel(running);
+        waitingList.setModel(waiting);
         int numOfProcess=1;
         int io=0;
         int execTime=5; //5 seconds default
         Scanner in =new Scanner(System.in);
         System.out.println("Number of Process: ");
         numOfProcess=in.nextInt();
-//        
-//        System.out.println("Number of I/O: ");
-//        io=in.nextInt();
-//        
-//        System.out.println("Execution time in seconds: ");
-//        execTime=in.nextInt();
-//        
-//        System.out.println("I/O: "+io +"\nExecution Time: "+execTime);
+       
+        System.out.println("Number of I/O: ");
+        io=in.nextInt();
         
-        for (int i=numOfProcess ; i>0 ;i--){
+        System.out.println("Execution time in seconds: ");
+        execTime=in.nextInt();
+        //System.out.println("Number of Process: "+numOfProcess+"\nI/O Requests: "+io +"\nExecution Time: "+execTime);
+        
+        for (int i=1 ; i<=numOfProcess ;i++){
             ThreadDemo t=new ThreadDemo("Thread-"+i,io,execTime);
+            ready.addElement("Thread-"+i);  //add to ready queue
             t.start();
         }
-//        ThreadDemo T1 = new ThreadDemo("Thread-1",io,execTime);
-//        T1.start();
-//        ThreadDemo T2= new ThreadDemo("Thread-2",io,execTime);
-//        T2.start();
-//        ThreadDemo T3= new ThreadDemo ("Thread-3",io,execTime);
-//        T3.start();
+
        
         
     }
@@ -49,14 +44,16 @@ public class UI extends javax.swing.JFrame {
    public class ThreadDemo extends Thread {
    private Thread t;
    private String threadName;
-   
+   private int input_output;
+   private int execTime;
    
    ThreadDemo(String name,int io,int time){
        threadName = name;
-       
+       input_output=io;
+       execTime=time;
        System.out.println("Creating " +  threadName );
        jTextArea1.append("Creating " +  threadName + "\n");
-       ready.addElement(name);
+
        
        
        
@@ -64,14 +61,21 @@ public class UI extends javax.swing.JFrame {
    public void run() {
       System.out.println("Running " +  threadName );
       jTextArea1.append("Running " +  threadName + "\n");
-      ready.removeElement(threadName);
-      running.addElement(threadName);
+      
+      //Add to runnig queue & Remove from Ready queue
+       if (!ready.isEmpty()){
+        ready.removeElement(threadName);
+       } 
+       running.addElement(threadName);
+      
+      
       try {
-         for(int i = 4; i > 0; i--) {
-            jTextArea1.append("Thread: " + threadName + ", " + i + "\n");
+         for(int i = execTime; i > 0; i--) {
+            
             System.out.println("Thread: " + threadName + ", " + i );
+            jTextArea1.append("Thread: " + threadName + ", " + i + "\n");
             // Let the thread sleep for a while.
-            Thread.sleep(2000);
+            Thread.sleep(1000);
          }
      } catch (InterruptedException e) {
          System.out.println("Thread " +  threadName + " interrupted.");
@@ -79,18 +83,23 @@ public class UI extends javax.swing.JFrame {
      }
      System.out.println("Thread " +  threadName + " exiting.");
      jTextArea1.append("Thread " +  threadName + " exiting."+ "\n");
-     running.removeElement(threadName);
+     
+    //After execution removing from running list
+     if (!running.isEmpty()){
+           running.removeElement(threadName);
+       } 
+     
+     
    }
    
    public void start ()
    {
       
       System.out.println("Starting " +  threadName );
-      jTextArea1.append("Thread " +  threadName + " exiting."+ "\n");
+      jTextArea1.append("Starting " +  threadName + "\n" );
       if (t == null)
       {
          t = new Thread (this, threadName);
-          waiting.addElement(threadName);
          t.start ();
       }
    }
@@ -121,7 +130,6 @@ public class UI extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         runningList = new javax.swing.JList();
         jPanel3 = new javax.swing.JPanel();
-        jSeparator2 = new javax.swing.JSeparator();
         jLabel5 = new javax.swing.JLabel();
         jScrollPane4 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
@@ -142,11 +150,11 @@ public class UI extends javax.swing.JFrame {
         jPanel2.add(jLabel3);
 
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel4.setText("Running");
+        jLabel4.setText("Waiting/Block");
         jPanel2.add(jLabel4);
 
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Waiting");
+        jLabel1.setText("Running");
         jPanel2.add(jLabel1);
 
         getContentPane().add(jPanel2);
@@ -167,12 +175,14 @@ public class UI extends javax.swing.JFrame {
 
         getContentPane().add(jPanel1);
 
-        jPanel3.setPreferredSize(new java.awt.Dimension(100, 400));
+        jPanel3.setPreferredSize(new java.awt.Dimension(300, 400));
         jPanel3.setLayout(new java.awt.BorderLayout());
-        jPanel3.add(jSeparator2, java.awt.BorderLayout.CENTER);
 
         jLabel5.setText("Statistics:");
         jPanel3.add(jLabel5, java.awt.BorderLayout.PAGE_START);
+
+        jScrollPane4.setAutoscrolls(true);
+        jScrollPane4.setWheelScrollingEnabled(false);
 
         jTextArea1.setEditable(false);
         jTextArea1.setColumns(20);
@@ -240,7 +250,6 @@ public class UI extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JSeparator jSeparator2;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JList readyList;
     private javax.swing.JList runningList;
