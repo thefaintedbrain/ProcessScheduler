@@ -143,8 +143,11 @@
         </Component>
         <Container class="javax.swing.JScrollPane" name="jScrollPane4">
           <Properties>
+            <Property name="verticalScrollBarPolicy" type="int" value="22"/>
             <Property name="autoscrolls" type="boolean" value="true"/>
-            <Property name="wheelScrollingEnabled" type="boolean" value="false"/>
+            <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+              <Dimension value="[183, 500]"/>
+            </Property>
           </Properties>
           <AuxValues>
             <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
@@ -163,7 +166,7 @@
                 <Property name="columns" type="int" value="20"/>
                 <Property name="rows" type="int" value="5"/>
                 <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                  <Dimension value="[164, 500]"/>
+                  <Dimension value="[164, 800]"/>
                 </Property>
               </Properties>
             </Component>

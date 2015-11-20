@@ -82,13 +82,13 @@ public class UI extends javax.swing.JFrame {
                 {
                     Thread.yield();
                     System.out.println(threadName+" Interupted by I/O:"+input_output);
-                    jTextArea1.append(threadName+" Interupted by I/O:"+input_output);
+                    jTextArea1.append(threadName+" Interupted by I/O:"+input_output+"\n");
                     
                     //Add process to waiting list
                       if (!running.isEmpty()){
                         running.removeElement(threadName);
-                       
-                       } 
+                       }else{                         
+                      } 
                         waiting.addElement(threadName);
                 }
                 if (!waiting.isEmpty()){
@@ -112,10 +112,10 @@ public class UI extends javax.swing.JFrame {
      if (!running.isEmpty()){
            running.removeElement(threadName);
            
-       }
+       }else{}
      if (!waiting.isEmpty()){
         waiting.clear();
-     }
+     }else{}
      
      
    }
@@ -210,13 +210,14 @@ public class UI extends javax.swing.JFrame {
         jLabel5.setText("Statistics:");
         jPanel3.add(jLabel5, java.awt.BorderLayout.PAGE_START);
 
+        jScrollPane4.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
         jScrollPane4.setAutoscrolls(true);
-        jScrollPane4.setWheelScrollingEnabled(false);
+        jScrollPane4.setPreferredSize(new java.awt.Dimension(183, 500));
 
         jTextArea1.setEditable(false);
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
-        jTextArea1.setPreferredSize(new java.awt.Dimension(164, 500));
+        jTextArea1.setPreferredSize(new java.awt.Dimension(164, 800));
         jScrollPane4.setViewportView(jTextArea1);
 
         jPanel3.add(jScrollPane4, java.awt.BorderLayout.CENTER);
